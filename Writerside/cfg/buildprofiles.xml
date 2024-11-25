@@ -12,13 +12,4 @@
         </variables>
     </build-profile>
 
-    <build-profile instance="spring">
-        <variables>
-            <noindex-content>true</noindex-content>
-            <primary-color>...</primary-color>
-            <header-logo>...</header-logo>
-            <web-root>https://fsk.github.io/rabbitmq-tutorial</web-root>
-        </variables>
-    </build-profile>
-
 </buildprofiles>

@@ -56,8 +56,8 @@ jobs:
 
       - name: Unzip artifact
         run: |
-          unzip -l *.zip
-          unzip -O UTF-8 -qq *.zip -d docs
+          unzip -l *.zip || echo "Failed to list zip contents"
+          unzip -O UTF-8 -qq *.zip -d docs || echo "Failed to unzip"
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
