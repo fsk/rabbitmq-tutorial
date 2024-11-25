@@ -17,7 +17,7 @@
             <noindex-content>true</noindex-content>
             <primary-color>...</primary-color>
             <header-logo>...</header-logo>
-            <web-root>https://fsk.github.io/spring-tutorial</web-root>
+            <web-root>https://fsk.github.io/rabbitmq-tutorial</web-root>
         </variables>
     </build-profile>
 
