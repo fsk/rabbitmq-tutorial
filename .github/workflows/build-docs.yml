@@ -1,0 +1,51 @@
+name: Build Documentation
+
+on:
+  push:
+    branches: [ master ]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+env:
+  INSTANCE: Writerside/rabbitmq
+  DOCKER_VERSION: 243.21565
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build documentation
+        uses: JetBrains/writerside-github-action@v4
+        with:
+          instance: ${{ env.INSTANCE }}
+          docker-version: ${{ env.DOCKER_VERSION }}
+          artifact: docs
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: docs
+
+      - name: Unzip artifact
+        run: unzip -O UTF-8 -qq docs.zip -d docs
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
