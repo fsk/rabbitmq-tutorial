@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instance-profile
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
+
+<instance-profile id="rabbitmq"
+                 name="RabbitMQ"
+                 start-page="Hello-RabitMQ.md">
+    <toc-element topic="Hello-RabitMQ.md"/>
+    <toc-element topic="Basic-Consepts.md"/>
+    <toc-element topic="RabbitMQ-Java.md"/>
+    <toc-element topic="RabbitMQ-Consumer-Java.md"/>
+    <toc-element topic="Exchange-Types.md">
+        <toc-element topic="Direct-Exchange.md"/>
+        <toc-element topic="Topic-Exchange.md">
+        </toc-element>
+        <toc-element topic="Fanout-Exchange.md"/>
+        <toc-element topic="Headers-Exchange.md"/>
+    </toc-element>
+</instance-profile>
