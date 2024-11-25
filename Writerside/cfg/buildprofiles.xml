@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE buildprofiles SYSTEM "https://resources.jetbrains.com/writerside/1.0/build-profiles.dtd">
 <buildprofiles xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/build-profiles.xsd"
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
@@ -7,6 +6,18 @@
     <build-profile instance="rabbitmq">
         <variables>
             <noindex-content>true</noindex-content>
+            <primary-color>...</primary-color>
+            <header-logo>...</header-logo>
+            <web-root>https://fsk.github.io/rabbitmq-tutorial</web-root>
+        </variables>
+    </build-profile>
+
+    <build-profile instance="spring">
+        <variables>
+            <noindex-content>true</noindex-content>
+            <primary-color>...</primary-color>
+            <header-logo>...</header-logo>
+            <web-root>https://fsk.github.io/spring-tutorial</web-root>
         </variables>
     </build-profile>
 

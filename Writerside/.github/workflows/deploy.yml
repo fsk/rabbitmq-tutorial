@@ -1,0 +1,30 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ master ]  
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup Java
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: '11'
+    
+    - name: Build Writerside
+      run: |
+        curl -L https://packages.jetbrains.team/maven/p/writerside/maven/com/jetbrains/writerside/writerside-cli/3.5.3/writerside-cli-3.5.3.zip -o writerside.zip
+        unzip writerside.zip
+        chmod +x writerside
+        ./writerside generate-static --instance rabbitmq --output build/webHelpFSK2-all
+    
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@4.1.5
+      with:
+        branch: gh-pages
+        folder: build/webHelpFSK2-all 
