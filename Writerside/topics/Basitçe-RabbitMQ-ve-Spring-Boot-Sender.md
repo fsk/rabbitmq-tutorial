@@ -24,6 +24,8 @@ tarayıcımızla erişebiliriz.<br/>
 `3-management` tagı ise RabbitMQ yönetim konsolunu (Management Plugin) içeren sürümünü ifade eder. 
 Bu sayede yukarıda bahsedilen web tabanlı yönetim paneline erişim mümkün olur.
 
+**Not:** Benim uygulamamda 5672 ve 15672 portları kullanıldığı için port yönlendirmesini 63 olarak yaptım. Sonraki configler de 
+buna göre olacak.
 
 RabbitMQ ayağa kalksın ve bizi beklesin.
 
