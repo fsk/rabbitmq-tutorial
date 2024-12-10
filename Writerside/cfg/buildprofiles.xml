@@ -7,7 +7,7 @@
         <variables>
             <noindex-content>true</noindex-content>
             <primary-color>...</primary-color>
-            <header-logo>...</header-logo>
+            <!--<header-logo>...</header-logo>-->
             <web-root>/rabbitmq-tutorial/</web-root>
         </variables>
     </build-profile>
