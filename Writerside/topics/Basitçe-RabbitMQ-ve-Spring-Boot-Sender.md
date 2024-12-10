@@ -6,7 +6,26 @@
 docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
 ````
 
-Yukarıdaki docker commandi ile bir rabbitMQ ayağa kaldırmamız gerekir. RabbitMQ ayağa kalksın ve bizi beklesin.
+Yukarıdaki docker commandi ile bir rabbitMQ ayağa kaldırmamız gerekir. (RabbitMQ'yu localimize de kurabiliriz.) 
+Bu komutları teker teker incelediğimizde <br/>
+**`docker run:`** Docker’da yeni bir container oluşturup çalıştırmak için kullanılan temel komuttur. <br/>
+**`-d (detached mode):`** Bu config, containerin arka planda (background) çalışmasını sağlar. Komut çalıştıktan sonra 
+terminali serbest bırakır ve containerin çıktısı terminali meşgul etmez. Container arka planda devam eder. <br/>
+**`--name rabbitmq:`** Bu kısım, oluşturulacak containerin ismini “rabbitmq” olarak belirler. Aksi halde, Docker 
+containera rastgele bir isim atar. Bu isim sayesinde containeri daha sonra yönetirken (örneğin, durdurmak, başlatmak veya 
+loglara bakmak için) bu isimle kullanabiliriz. <br/>
+**`-p 5672:5672:`** Bu seçenek, container içindeki 5672 numaralı portu (RabbitMQ’nun varsayılan AMQP bağlantı portudur) 
+host makine üzerinde de 5672 numaralı port üzerinden erişilebilir hale getirir. Yani host makinede localhost:5672 ile 
+bu containera bağlanabiliriz. <br/>
+**`-p 15672:15672:`** Bu da container içindeki 15672 numaralı portu (RabbitMQ Management Plugin’in web arayüzü için 
+varsayılan port) host makineye eşleştirir. Böylece http://localhost:15672 adresi üzerinden RabbitMQ yönetim paneline 
+tarayıcımızla erişebiliriz.<br/>
+**`rabbitmq:3-management::`** Bu, kullanılacak imageın ismi ve tag'ıdır. rabbitmq temel RabbitMQ sunucu imagedır. 
+`3-management` tagı ise RabbitMQ yönetim konsolunu (Management Plugin) içeren sürümünü ifade eder. 
+Bu sayede yukarıda bahsedilen web tabanlı yönetim paneline erişim mümkün olur.
+
+
+RabbitMQ ayağa kalksın ve bizi beklesin.
 
 ## Java - Spring Boot 
 
