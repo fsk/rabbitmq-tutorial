@@ -9,7 +9,10 @@
     <toc-element topic="Basic-Consepts.md"/>
     <toc-element topic="Basitçe-RabbitMQ-ve-Spring-Boot-Sender.md"/>
     <toc-element topic="Basitçe-RabbitMQ-ve-NodeJS-Receiver.md"/>
-    <toc-element topic="RabbitMQ-Queuelarına-Derinlemesine-Bakış.md"/>
+    <toc-element topic="RabbitMQ-Queuelarına-Derinlemesine-Bakış.md">
+        <toc-element topic="Spring-Boot-ile-Queue-Okumak.md"/>
+        <toc-element topic="Mesajlarda-Öncelik.md"/>
+    </toc-element>
     <toc-element topic="RabbitMQ-Java.md"/>
     <toc-element topic="RabbitMQ-Consumer-Java.md"/>
     <toc-element topic="Exchange-Types.md">

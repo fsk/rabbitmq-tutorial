@@ -94,7 +94,7 @@ Dead Letter Exchange’in (DLX) adını belirler.
 {style="warning"}
 
 **SORU** <br/>
-**Docker'da bir rabbitMQ ayağa kaldırıp durable olan bir kuyruk oluşturduk diyelim. Bu kuyruğun bilgilerini diskte nasıl görebiliriz.?**
+**Docker'da bir rabbitMQ ayağa kaldırıp durable olan bir kuyruk oluşturduk diyelim. Bu kuyruğun bilgilerini diskte nasıl görebiliriz.?** <br/>
 RabbitMQ, queue bilgilerini ve metadatasını disk üzerinde `Mnesia` adı verilen dahili bir veritabanında saklar. Durable 
 queue bilgileri burada bulunur. Ancak bu veriler düz metin dosyaları şeklinde değil, özel bir formatta depolanır. 
 Yani doğrudan bir dosyayı açıp kuyruk isimlerini, mesajları veya yapılandırmaları metin olarak görüntüleyemeyiz
@@ -104,6 +104,68 @@ Ama queue bilgilerini almanın bir yolu vardır.
 `docker exec -it <container_name> rabbitmqctl list_queues name durable messages`
 
 Bu komut ile docker'da ayağa kaldırdığımız rabbitMQ'da oluşturulan queue bilgilerini görebiliriz.
+
+### argümanlarla çalışmak
+`Map<String, Object> arguments`parametresi ile argümanları alıp parametre olarak Queue'ya verebiliriz.
+
+```Java
+@Bean
+public Queue firstQueue() {
+    Map<String, Object> args = new HashMap<>();
+    /**
+     * x-message-ttl ==> Mesajın queue'da ne kadar süre (milisaniye cinsinden) bekleyebileceğini belirleyen
+     * Time-To-Live (TTL) değeridir. Bu süre dolduğunda mesaj dead-letter exchange ’e yönlendirilir
+     * (eğer DLX ayarı varsa) ya da silinir.
+     */
+    args.put("x-message-ttl", 100000);
+    /**
+     * x-expires ==> Queue'un ne kadar süre (milisaniye cinsinden) boşta kalabileceğini belirleyen
+     * expiration değeridir. Bu süre dolduğunda queue silinir.
+     */
+    args.put("x-expires", 200000);
+    /**
+     * x-max-length ==> Queue'da en fazla kaç adet mesaj tutulabileceğini belirleyen maksimum mesaj sayısıdır.
+     */
+    args.put("x-max-length", 10);
+    return new Queue(FIRST_QUEUE, true, false, false, args);
+}
+```
+
+Bu şekilde kodu geliştirip, args parametresine verdiğimiz değerlerle birlikte kodu ayağa kaldırdığımız zaman aşağıdaki gibi
+bir cURL istekleri atabiliriz.
+
+````cURL
+curl -X POST \
+  http://localhost:8082/send \
+  -H 'Content-Type: application/json' \
+  -d '{"message": "Merhaba RabbitMQ!"}'
+
+````
+
+````cURL
+curl -X POST \
+  http://localhost:8082/send \
+  -H 'Content-Type: application/json' \
+  -d '{"message": "Turkiye Java Community!"}'
+
+````
+
+Bu Curl isteklerini attığımızda aşağıdaki fotoğraftaki gibi queue'muzda mesajları görebiliriz. 
+
+![rabbitmq-fifth.png](rabbitmq-fifth.png)
+
+`args.put("x-message-ttl", 100000);` vermiş olduğumuz bu argümandan dolayı mesajlar 100000ms (100 sn) sonra silinecektir.
+Öncelikle `{"message": "Merhaba RabbitMQ!"}` bu mesaj, ardından da `{"message": "Turkiye Java Community!"}` bu mesaj
+silinip queue boşalacaktır.
+
+Aşağıdaki görselde de bunu görebiliriz.
+
+![rabbitmq-sixth.png](rabbitmq-sixth.png)
+
+`args.put("x-expires", 200000);` vermiş olduğumuz bu parametreden dolayı da, 200 sn sonra queue'nun otomatik olarak silindiğini
+görebiliriz. Tabi bunu görmek için ekranı yenilemek gerekir.
+
+![rabbitmq-seventh.png](rabbitmq-seventh.png)
 
 
 
